@@ -1,0 +1,31 @@
+<mat-toolbar class="breadcrumb-toolbar">
+  <nav>
+    <span class="breadcrumb" [class.active]="!selectedContry" [class.pointer]="selectedContry"
+          (click)="resetSelection()"> Country</span>
+    @if (selectedContry) {
+      <span class="breadcrumb"> &gt;</span>
+      <span class="breadcrumb" [class.active]="selectedContry && !selectedMonth">{{selectedContry}}</span>
+      <span class="breadcrumb" *ngIf="selectedMonth"> &gt;</span>
+      <span class="breadcrumb" [class.active]="selectedMonth"> {{ selectedContry }}</span>
+    }
+<!--    @if (selectedYear) {-->
+<!--      <span class="breadcrumb"> &gt;</span>-->
+<!--      <span class="breadcrumb"> {{ selectedYear }}</span>-->
+<!--    }-->
+  </nav>
+</mat-toolbar>
+<div class="content-wrapper">
+  <!--Country Selector-->
+  <ng-container *ngIf="!selectedContry">
+    <app-country-selector (countrySelected)="onCountrySelected($event)"></app-country-selector>
+  </ng-container>
+  <!--Month Selector-->
+  <ng-container *ngIf="!selectedMonth">
+    <app-month-selector (monthSelected)="onMonthSelected($event)" [country]="selectedContry"></app-month-selector>
+  </ng-container>
+
+  <!--Transaction Selector-->
+  <ng-container *ngIf="selectedContry && selectedMonth">
+    Add Transaction Component here
+  </ng-container>
+</div>
